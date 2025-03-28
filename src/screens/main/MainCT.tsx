@@ -57,10 +57,10 @@ function MainCT({}: MainCTProps): React.JSX.Element {
   }, []);
 
   /**
-   * return url 채우기
+   * return url 채우기 | 지우기
    * @returns {void}
    */
-  const handleFillReturnUrl = () =>
+  const handleFillClearReturnUrl = () =>
     setForm((prevState) => ({
       ...prevState,
       returnUrl: prevState.returnUrl
@@ -111,7 +111,7 @@ function MainCT({}: MainCTProps): React.JSX.Element {
       form={form}
       onChange={useChange}
       onPay={handlePay}
-      onFillReturnUrl={handleFillReturnUrl}
+      onFillClearReturnUrl={handleFillClearReturnUrl}
     />
   );
 }

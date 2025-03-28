@@ -1,5 +1,4 @@
 {
-  "homepage": "https://withbbang.github.io/test-sdk-react/",
   "name": "test-sdk-react",
   "version": "0.1.0",
   "private": true,
@@ -74,8 +73,8 @@
     "workbox-webpack-plugin": "^6.4.1"
   },
   "scripts": {
-    "predeploy" : "npm run build",
-    "deploy" : "gh-pages -d build",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "node scripts/start.js",
     "build": "env-cmd -f .env.production node scripts/build.js",
     "build:development": "env-cmd -f .env.development node scripts/build.js",

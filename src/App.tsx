@@ -10,7 +10,7 @@ function App(): React.JSX.Element {
       <Routes>
         <Route path="/" element={<Index />} />
         <Route path="/main" element={<Main />} />
-        <Route path="*" element={<NotFound />} />
+        <Route path="*" element={<Main />} />
       </Routes>
     </BrowserRouter>
   );

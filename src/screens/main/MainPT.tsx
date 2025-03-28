@@ -9,7 +9,7 @@ function MainPT({
   form,
   onChange,
   onPay,
-  onFillReturnUrl,
+  onFillClearReturnUrl,
 }: MainPTProps): React.JSX.Element {
   return (
     <div className={styles.wrap}>
@@ -62,7 +62,7 @@ function MainPT({
               name="returnUrl"
               value={`${form.returnUrl}`}
               onChange={onChange}
-              onClick={onFillReturnUrl}
+              onClick={onFillClearReturnUrl}
             />
             <RadioTag
               title="에스크로 여부"
@@ -76,19 +76,20 @@ function MainPT({
               )}
               onChange={onChange}
             />
-            <RadioTag
-              title="모바일 타겟"
-              defaultValue={`${form.target}`}
-              options={TARGET_LIST.map(
-                ({ label, value }: TypeKeyValueForm) => ({
-                  value,
-                  label,
-                  name: 'target',
-                }),
-              )}
-              disabled={form.displayType === 'desktop'}
-              onChange={onChange}
-            />
+            {form.displayType === 'mobile' && (
+              <RadioTag
+                title="모바일 타겟"
+                defaultValue={`${form.target}`}
+                options={TARGET_LIST.map(
+                  ({ label, value }: TypeKeyValueForm) => ({
+                    value,
+                    label,
+                    name: 'target',
+                  }),
+                )}
+                onChange={onChange}
+              />
+            )}
           </div>
           {form.requestDate ? (
             <div className={styles.paramsField}>
@@ -112,35 +113,20 @@ function MainPT({
           ) : null}
         </div>
         <div className={styles.transactionSection}>
-          <p className={styles.title}>Desktop Test</p>
+          <p className={styles.title}>테스트</p>
           <p className={styles.subTitle}>
             {form.returnUrl ? 'Redirect' : 'Promise'}
           </p>
           <div className={styles.buttonBox}>
             {PAY_METHOD_LIST.map(({ label, value }: TypeKeyValueForm) => (
               <button
-                key={`mobile-${value}`}
-                onClick={() => onPay(`${value}`)}
-                disabled={form.displayType === 'mobile'}
-              >
-                {label}
-              </button>
-            ))}
-          </div>
-        </div>
-        <div className={styles.transactionSection}>
-          <p className={styles.title}>Mobile Test</p>
-          <p className={styles.subTitle}>
-            {form.returnUrl ? 'Redirect' : 'Promise'}
-          </p>
-          <div className={styles.buttonBox}>
-            {PAY_METHOD_LIST.map(({ label, value }: TypeKeyValueForm) => (
-              <button
-                key={`desktop-${value}`}
-                onClick={() => onPay(`${value}`)}
+                key={`${value}`}
                 disabled={
-                  form.displayType === 'desktop' || !`${form.returnUrl}`
+                  form.displayType === 'mobile' &&
+                  form.target === 'self' &&
+                  !form.returnUrl
                 }
+                onClick={() => onPay(`${value}`)}
               >
                 {label}
               </button>
@@ -161,7 +147,7 @@ interface MainPTProps {
       | React.ChangeEvent<HTMLSelectElement>,
   ) => void;
   onPay: (paymethod: string) => void;
-  onFillReturnUrl: () => void;
+  onFillClearReturnUrl: () => void;
 }
 
 export default MainPT;
