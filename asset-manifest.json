@@ -1,8 +1,8 @@
 {
   "files": {
-    "main.css": "/static/css/main.da50fdad.css",
-    "main.js": "/static/js/main.2f865275.js",
-    "index.html": "/index.html"
+    "main.css": "/test-sdk-react/static/css/main.da50fdad.css",
+    "main.js": "/test-sdk-react/static/js/main.2f865275.js",
+    "index.html": "/test-sdk-react/index.html"
   },
   "entrypoints": [
     "static/css/main.da50fdad.css",
