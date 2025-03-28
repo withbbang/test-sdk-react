@@ -1,0 +1,93 @@
+.wrap {
+  width: 100%;
+  min-height: 100vh;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  @include background($more-light);
+
+  .innerWrap {
+    width: calc(100% - 40px);
+    height: 100%;
+    padding: 20px;
+
+    > div {
+      width: 100%;
+      padding: 20px;
+      border: solid 1px $most-dark;
+      box-sizing: border-box;
+      margin-bottom: 15px;
+
+      .title {
+        font-size: 1.5rem;
+        font-weight: bold;
+        margin: 0 0 10px;
+      }
+
+      .subTitle {
+        font-size: 1.2rem;
+        margin: 0 0 10px;
+      }
+    }
+
+    .inputSection {
+      display: flex;
+
+      > div {
+        width: 50%;
+      }
+
+      .paramsField {
+        margin-top: 20px;
+
+        > p {
+          margin: 0 0 5px;
+        }
+      }
+    }
+
+    .transactionSection {
+      width: 100%;
+
+      .buttonBox {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+
+        > button {
+          font-size: 1rem;
+          padding: 5px;
+          margin-right: 15px;
+          background-color: $light;
+        }
+      }
+    }
+  }
+}
+
+@include mobile {
+  .wrap {
+    .innerWrap {
+      .inputSection {
+        flex-direction: column;
+
+        > div {
+          width: 100%;
+        }
+      }
+
+      .transactionSection {
+        .buttonBox {
+          flex-direction: column;
+
+          > button {
+            width: 100%;
+            margin-bottom: 5px;
+          }
+        }
+      }
+    }
+  }
+}

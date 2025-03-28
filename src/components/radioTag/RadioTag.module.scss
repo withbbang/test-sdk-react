@@ -1,0 +1,30 @@
+.wrap {
+  width: 100%;
+  display: flex;
+  margin-bottom: 5px;
+
+  .fieldset {
+    width: 100%;
+    display: flex;
+    border: none;
+    padding: 0;
+    margin-inline: unset;
+
+    .title {
+      width: 200px;
+    }
+  }
+}
+
+@include mobile {
+  .wrap {
+    .fieldset {
+      align-items: center;
+      justify-content: space-between;
+
+      .title {
+        width: unset;
+      }
+    }
+  }
+}

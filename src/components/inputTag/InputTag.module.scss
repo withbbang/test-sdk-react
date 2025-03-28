@@ -1,0 +1,46 @@
+.wrap {
+  width: 100%;
+  display: flex;
+  margin-bottom: 5px;
+
+  .title {
+    width: 200px;
+
+    .required {
+      color: red;
+    }
+  }
+
+  .inputWrap {
+    position: relative;
+
+    .float {
+      position: absolute;
+      top: 5px;
+      right: 3px;
+      border: solid 1px;
+      padding: 1px;
+      font-size: 0.7rem;
+    }
+  }
+}
+
+@include mobile {
+  .wrap {
+    flex-direction: column;
+    justify-content: space-between;
+
+    .title {
+      width: unset;
+    }
+
+    .inputWrap {
+      width: 100%;
+
+      .input {
+        width: 100%;
+        box-sizing: border-box;
+      }
+    }
+  }
+}
