@@ -104,8 +104,19 @@ function MainPT({
               </p>
               <p>프로세스:&nbsp;{form.returnUrl ? 'Redirect' : 'Promise'}</p>
               <p>파라미터:</p>
-              <br />
-              {/* TODO: 파라미터 표시 */}
+              <p>&nbsp;&nbsp;- orderId: {form.orderId}</p>
+              <p>&nbsp;&nbsp;- currency: {form.currency}</p>
+              <p>&nbsp;&nbsp;- productPeriod: {form.productPeriod}</p>
+              <p>&nbsp;&nbsp;- buyerName: {form.buyerName}</p>
+              <p>&nbsp;&nbsp;- buyerPhone: {form.buyerPhone}</p>
+              <p>&nbsp;&nbsp;- buyerEmail: {form.buyerEmail}</p>
+              <p>&nbsp;&nbsp;- goodsName: {form.goodsName}</p>
+              <p>&nbsp;&nbsp;- amount: {form.amount}</p>
+              <p>&nbsp;&nbsp;- amountTaxFree: {form.amountTaxFree}</p>
+              <p>&nbsp;&nbsp;- amountVat: {form.amountVat}</p>
+              <p>&nbsp;&nbsp;- returnNotyUrl: {form.returnNotyUrl}</p>
+              <p>&nbsp;&nbsp;- sharedNoInterest: {form.sharedNoInterest}</p>
+              <p>&nbsp;&nbsp;- quotabase: {form.quotabase}</p>
               {form.transactionResult ? (
                 <p>결제결과:&nbsp;{form.transactionResult}</p>
               ) : null}
