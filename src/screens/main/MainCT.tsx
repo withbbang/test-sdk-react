@@ -3,6 +3,7 @@ import { CommonState } from 'middlewares/reduxToolkits/commonSlice';
 import { useChangeHook, useSetToastPopupHook } from 'modules/customHooks';
 import { handleConvertDateFormat, handleGetDisplayType } from 'modules/utils';
 import { useInitSdk } from 'modules/sdk';
+import { RETURN_URL } from 'modules/constants';
 import MainPT from './MainPT';
 
 function MainCT({}: MainCTProps): React.JSX.Element {
@@ -63,9 +64,7 @@ function MainCT({}: MainCTProps): React.JSX.Element {
   const handleFillClearReturnUrl = () =>
     setForm((prevState) => ({
       ...prevState,
-      returnUrl: prevState.returnUrl
-        ? ''
-        : 'https://tpglink.paywelcome.co.kr/pglink/authDummy',
+      returnUrl: prevState.returnUrl ? '' : `${RETURN_URL}`,
     }));
 
   /**

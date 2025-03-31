@@ -57,7 +57,7 @@ function MainPT({
               onChange={onChange}
             />
             <InputTag
-              title="리다이렉트URL"
+              title="가맹점 Return URL"
               type="text"
               name="returnUrl"
               value={`${form.returnUrl}`}

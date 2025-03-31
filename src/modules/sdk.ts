@@ -84,6 +84,7 @@ export function useInitSdk(cb: Function) {
           console.debug('결제 요청 완료', response);
 
           // TODO: 가맹점 서버에 결제 승인 로직 api
+          useSetToastPopup('가맹점 서버에 결제 승인 로직 API START');
         }
 
         cb('결제 요청 성공');
