@@ -4,6 +4,7 @@ import { useChangeHook, useSetToastPopupHook } from 'modules/customHooks';
 import { handleConvertDateFormat, handleGetDisplayType } from 'modules/utils';
 import { useInitSdk } from 'modules/sdk';
 import { RETURN_URL } from 'modules/constants';
+import { CustomWindow } from 'modules/types';
 import MainPT from './MainPT';
 
 function MainCT({}: MainCTProps): React.JSX.Element {
@@ -55,6 +56,13 @@ function MainCT({}: MainCTProps): React.JSX.Element {
 
   useEffect(() => {
     // TODO: return에 모든 팝업들 상태 초기화
+    const customWindow = window as CustomWindow;
+
+    customWindow.test = () => useSetToastPopup('test');
+
+    return () => {
+      delete customWindow.test;
+    };
   }, []);
 
   /**

@@ -28,6 +28,7 @@ export interface CustomWindow extends Window {
   goBack?: (data?: any) => any;
   onResult?: (data?: any) => any;
   onResume?: (data?: any) => any;
+  test?: (data?: any) => any;
   WelcomePayments?: WelcomePayments;
   // TODO: add others...
 }
