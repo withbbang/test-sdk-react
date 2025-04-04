@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useState } from 'react';
-import { CUSTOM_WINDOW } from './constants';
+import { APPROVE_URL, CUSTOM_WINDOW } from './constants';
 import { TypeKeyValueForm, WelcomePaymentsInstance } from './types';
 import { useSetToastPopupHook } from './customHooks';
-import { handleGenerateRandomText } from './utils';
+import { postAPI } from './apis';
 
 /**
  * @description mid 목록
@@ -32,8 +32,8 @@ export const ESCROW_TF_LIST: TypeKeyValueForm[] = [
  * @description 모바일 새창 여부
  */
 export const TARGET_LIST: TypeKeyValueForm[] = [
-  { label: '새창', value: 'blank' },
   { label: '현재 창', value: 'self' },
+  { label: '새창', value: 'blank' },
 ];
 
 /**
@@ -70,27 +70,20 @@ export function useInitSdk(cb: Function) {
           : undefined;
 
       try {
-        const response = await sdk?.pay(
-          {
-            ...request,
-            orderId: `MACHO-${handleGenerateRandomText()}`,
-          },
-          viewOpt,
-        );
+        const response = await sdk?.pay({ ...request }, viewOpt);
 
         if (request.returnUrl) {
           console.debug('결제창 호출 완료', response);
+          cb('결제 요청 성공');
         } else {
           console.debug('결제 요청 완료', response);
-
-          // TODO: 가맹점 서버에 결제 승인 로직 api
-          useSetToastPopup('가맹점 서버에 결제 승인 로직 API START');
+          await postAPI(`${APPROVE_URL}`, response); // 승인 요청
+          console.debug('결제 승인 완료', response);
+          cb('결제 승인 완료');
         }
-
-        cb('결제 요청 성공');
       } catch (e: any) {
         console.error(e);
-        useSetToastPopup('결제 요청 실패');
+        useSetToastPopup('결제 실패');
         cb(e.message);
       }
     },

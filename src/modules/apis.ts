@@ -1,3 +1,4 @@
+import { CLIENT_KEY } from './sdk';
 import {
   handleSetParamsWithSync,
   handleThrowCustomErrorInAPI,
@@ -67,6 +68,7 @@ async function postAPI(
       method: 'POST',
       //   mode: "no-cors",
       headers: {
+        Authorization: 'Welcomepayments b920187ab55b86caaf1b9029f3597baa',
         Accept: 'application/json',
         'Content-Type': 'application/json',
       },
@@ -81,15 +83,17 @@ async function postAPI(
       })
       .then((result) => {
         console.debug('result: ', result);
-        const {
-          result: { code, message },
-          data,
-        } = result;
+        const { resultCode, resultMessage, key, amount, orderId, extraData } =
+          result;
 
-        if (code !== '000000')
-          handleThrowCustomErrorInAPI({ code, message, failCb });
+        if (resultCode !== '0000')
+          handleThrowCustomErrorInAPI({
+            code: resultCode,
+            message: resultMessage,
+            failCb,
+          });
 
-        resolve(data);
+        resolve({ key, amount, orderId, extraData });
       })
       .catch((error) => {
         console.error(error);

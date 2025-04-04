@@ -1,9 +1,13 @@
 import React, { useEffect } from 'react';
 import { CommonState } from 'middlewares/reduxToolkits/commonSlice';
 import { useChangeHook, useSetToastPopupHook } from 'modules/customHooks';
-import { handleConvertDateFormat, handleGetDisplayType } from 'modules/utils';
+import {
+  handleConvertDateFormat,
+  handleGenerateRandomText,
+  handleGetDisplayType,
+} from 'modules/utils';
 import { useInitSdk } from 'modules/sdk';
-import { RETURN_URL } from 'modules/constants';
+import { BASE_URL, RETURN_URL } from 'modules/constants';
 import { CustomWindow } from 'modules/types';
 import MainPT from './MainPT';
 
@@ -16,7 +20,7 @@ function MainCT({}: MainCTProps): React.JSX.Element {
     displayType: handleGetDisplayType(), // desktop, mobile 타입
     requestDate: '', // 요청 날짜
     transactionResult: '', // 결제 요청 결과 문구
-    target: 'blank',
+    target: 'self',
 
     /* 사용자 입력 input */
     buyerName: '상남자', // 구매자명 required
@@ -37,7 +41,7 @@ function MainCT({}: MainCTProps): React.JSX.Element {
     amountVat: '',
     returnUrl: '', // 인증결과를 받을 가맹점 URL
     returnNotyUrl: 'https://merchantsite.com/PayNoti', // 가상계좌 입금통보를 받을 가맹점 측 URL (가상계좌 서비스 미이용시 returnUrl 입력)
-    closeUrl: '', // PC결제 닫기 클릭 시 호출 URL (sample소스 참고)
+    closeUrl: BASE_URL || '', // PC결제 닫기 클릭 시 호출 URL (sample소스 참고)
     userAgent: '', // 유입환경 (결제고객의 브라우저 및 기기 환경 (SDK연동 시 사용 불필요)) required
     extraData: '',
     additionalPaymentInfo: '',
@@ -48,7 +52,7 @@ function MainCT({}: MainCTProps): React.JSX.Element {
     directEasypay: '',
     icashExpireDate: '',
     productPeriod: '2024073120240831',
-    cellType: '',
+    cellType: '1',
     cellAbleCorp: '',
     cellDefaultCorp: '',
     iosAppScheme: '',
@@ -92,12 +96,21 @@ function MainCT({}: MainCTProps): React.JSX.Element {
   const handlePay = (paymethod: string) => {
     try {
       handleCheckValid();
-      setForm((prevState) => ({
-        ...prevState,
-        requestDate: handleConvertDateFormat(new Date(), 'yyyy-mm-dd hh:mm:ss'),
-        paymethod,
-      }));
-      usePay({ ...form, paymethod });
+      setForm((prevState) => {
+        const request = {
+          ...prevState,
+          orderId: `MACHO-${handleGenerateRandomText()}`,
+          requestDate: handleConvertDateFormat(
+            new Date(),
+            'yyyy-mm-dd hh:mm:ss',
+          ),
+          paymethod,
+        };
+
+        usePay(request);
+
+        return request;
+      });
     } catch (e: any) {
       useSetToastPopup(e.message);
     }

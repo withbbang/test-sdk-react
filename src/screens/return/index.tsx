@@ -4,6 +4,8 @@ import { PropState } from 'middlewares/configureReducer';
 import { CommonState } from 'middlewares/reduxToolkits/commonSlice';
 import { connect } from 'react-redux';
 import { Action } from 'redux';
+import { usePostDataHook, useSetToastPopupHook } from 'modules/customHooks';
+import { APPROVE_URL } from 'modules/constants';
 import styles from './Return.module.scss';
 
 function mapStateToProps(state: PropState): CommonState {
@@ -19,14 +21,34 @@ function mapDispatchToProps(dispatch: (actionFunction: Action<any>) => any) {
 function Return(): React.JSX.Element {
   const [queryString] = useSearchParams();
   const [params, setParams] = useState<Array<string>>([]);
+  const useSetToastPopup = useSetToastPopupHook();
 
   useEffect(() => {
-    const params = queryString.toString().split('&');
+    let key = '';
+    let amount = '';
+    const queries = queryString.toString().split('&');
 
-    params[0].substring(1);
+    queries[0].substring(1);
 
-    setParams(params.map((param) => decodeURIComponent(param)));
+    const params = queries.map((query) => {
+      const [head, body] = query.split('=');
+
+      if (head === 'key') key = body;
+      if (head === 'amount') amount = body;
+
+      return decodeURIComponent(query);
+    });
+
+    setParams(params);
+
+    usePostData({ key, amount });
   }, []);
+
+  const { usePostData } = usePostDataHook({
+    url: `${APPROVE_URL}`,
+    successCb: () => useSetToastPopup('결제 성공'),
+    failCb: () => useSetToastPopup('결제 실패'),
+  });
 
   return (
     <div className={styles.wrap}>
