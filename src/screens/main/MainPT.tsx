@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import React from 'react';
 import { ESCROW_TF_LIST, PAY_METHOD_LIST, TARGET_LIST } from 'modules/sdk';
 import { TypeKeyValueForm } from 'modules/types';
@@ -16,7 +17,15 @@ function MainPT({
       <div className={styles.innerWrap}>
         <div className={styles.inputSection}>
           <div className={styles.inputField}>
-            <p className={styles.title}>사용자 입력</p>
+            <p
+              className={styles.title}
+              onClick={() => {
+                window.location.href =
+                  'https://devmobile.paywelcome.co.kr/sspay.jsp';
+              }}
+            >
+              사용자 입력
+            </p>
             <InputTag
               title="구매자명"
               type="text"

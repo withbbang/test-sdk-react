@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { CommonState } from 'middlewares/reduxToolkits/commonSlice';
 import { useChangeHook, useSetToastPopupHook } from 'modules/customHooks';
 import {
@@ -12,6 +13,7 @@ import { CustomWindow } from 'modules/types';
 import MainPT from './MainPT';
 
 function MainCT({}: MainCTProps): React.JSX.Element {
+  const navigate = useNavigate();
   const useSetToastPopup = useSetToastPopupHook();
   const usePay = useInitSdk((transactionResult: boolean) =>
     handleCallback(transactionResult),
