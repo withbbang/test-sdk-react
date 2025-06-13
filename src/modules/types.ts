@@ -30,6 +30,7 @@ export interface CustomWindow extends Window {
   onResume?: (data?: any) => any;
   test?: (data?: any) => any;
   WelcomePayments?: WelcomePayments;
+  ReactNativeWebView?: any;
   // TODO: add others...
 }
 

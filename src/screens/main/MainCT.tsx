@@ -128,12 +128,24 @@ function MainCT({}: MainCTProps): React.JSX.Element {
       transactionResult,
     }));
 
+  const handleTestNpay = () => {
+    const customWindow = window as CustomWindow;
+
+    customWindow.ReactNativeWebView?.postMessage(
+      JSON.stringify({
+        type: 'NPAY',
+        url: 'https://devmobile.paywelcome.co.kr/sspay.jsp',
+      }),
+    );
+  };
+
   return (
     <MainPT
       form={form}
       onChange={useChange}
       onPay={handlePay}
       onFillClearReturnUrl={handleFillClearReturnUrl}
+      onTestNpay={handleTestNpay}
     />
   );
 }

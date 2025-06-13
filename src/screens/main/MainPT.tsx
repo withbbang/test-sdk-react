@@ -11,19 +11,14 @@ function MainPT({
   onChange,
   onPay,
   onFillClearReturnUrl,
+  onTestNpay,
 }: MainPTProps): React.JSX.Element {
   return (
     <div className={styles.wrap}>
       <div className={styles.innerWrap}>
         <div className={styles.inputSection}>
           <div className={styles.inputField}>
-            <p
-              className={styles.title}
-              onClick={() => {
-                window.location.href =
-                  'https://devmobile.paywelcome.co.kr/sspay.jsp';
-              }}
-            >
+            <p className={styles.title} onClick={onTestNpay}>
               사용자 입력
             </p>
             <InputTag
@@ -168,6 +163,7 @@ interface MainPTProps {
   ) => void;
   onPay: (paymethod: string) => void;
   onFillClearReturnUrl: () => void;
+  onTestNpay: () => void;
 }
 
 export default MainPT;
